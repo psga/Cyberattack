@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity History Timeline</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body
+    class="bg-black text-neutral-300 font-sans selection:bg-white selection:text-black overflow-hidden h-screen w-screen relative">
+
+    <canvas id="star-canvas" class="fixed inset-0 -z-10 bg-black pointer-events-none"></canvas>
+
+    <!-- About Project Modal -->
+    <div id="about-overlay"
+        class="fixed inset-0 z-[60] hidden opacity-0 transition-opacity duration-700 items-center justify-center p-6 bg-black/60 backdrop-blur-2xl">
+        <div
+            class="relative max-w-4xl w-full bg-neutral-900/40 border border-white/10 rounded-3xl p-10 md:p-16 overflow-hidden about-content-container shadow-2xl">
+            <!-- Close Button -->
+            <button id="close-about" class="absolute top-8 right-8 text-white/30 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Content -->
+            <div class="space-y-12">
+                <header>
+                    <h2 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4">THE PROJECT</h2>
+                    <div class="h-1 w-20 bg-white"></div>
+                </header>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <section class="space-y-4">
+                        <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-500">The Vision</h3>
+                        <p class="text-lg text-neutral-300 font-light leading-relaxed">
+                            An interactive archive designed to visualize the evolution of digital conflict. From the
+                            first academic experiments to modern sophisticated cyberweapons, we explore the milestones
+                            that defined global cybersecurity.
+                        </p>
+                    </section>
+
+                    <section class="space-y-4">
+                        <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-500">The Archive</h3>
+                        <p class="text-lg text-neutral-300 font-light leading-relaxed">
+                            Navigate through four critical categories: <span class="text-red-500">Malware</span>,
+                            <span class="text-orange-500">Data Breaches</span>, <span
+                                class="text-purple-500">Cyberwarfare</span>, and <span
+                                class="text-blue-500">Vulnerabilities</span>. Each node represents a technical or
+                            social turning point.
+                        </p>
+                    </section>
+                </div>
+
+                <footer class="pt-8 border-t border-white/5 flex flex-wrap gap-10 items-center">
+                    <div class="flex flex-col">
+                        <span class="text-[10px] uppercase text-neutral-600 tracking-widest mb-1">Engine</span>
+                        <span class="text-xs font-mono text-neutral-400">Vanilla JavaScript / CSS3</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-[10px] uppercase text-neutral-600 tracking-widest mb-1">Styling</span>
+                        <span class="text-xs font-mono text-neutral-400">Tailwind CSS / HSL Canvas</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-[10px] uppercase text-neutral-600 tracking-widest mb-1">Made by</span>
+                        <div class="flex items-center gap-2">
+                            <a href="https://psga.github.io/pusu/" target="_blank"
+                                class="text-xs font-bold text-white hover:text-neutral-400 transition-colors flex items-center gap-1">
+                                Zyrba
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                            <span class="text-xs text-neutral-500">&</span>
+                            <span class="text-xs font-bold text-white">Maysu</span>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="text-center">
+            <h1 class="splash-title tracking-tighter">CYBER<span class="text-neutral-500">ATTACK</span></h1>
+            <p class="splash-subtitle uppercase tracking-[0.3em] text-neutral-500 mt-4 opacity-0 animate-fade-in">
+                Chronological Visual Archive</p>
+        </div>
+    </div>
+
+    <nav class="fixed top-0 left-0 w-full p-8 z-40 flex justify-between items-start pointer-events-none">
+        <div>
+            <h1 class="text-3xl font-bold tracking-tighter text-white pointer-events-auto">CYBER<span
+                    class="text-neutral-500">ATTACK</span> HISTORY</h1>
+            <p class="text-xs text-neutral-500 mt-1 tracking-widest uppercase">Chronological Visual Archive</p>
+        </div>
+        <div class="pointer-events-auto">
+            <a href="#" id="about-btn"
+                class="text-xs font-bold border border-neutral-700 px-4 py-2 rounded-full hover:bg-white hover:text-black transition-colors">ABOUT
+                PROJECT</a>
+        </div>
+    </nav>
+
+    <div id="scroll-container"
+        class="h-full w-full overflow-x-auto overflow-y-hidden no-scrollbar grab-surface flex items-center relative">
+
+        <div id="timeline-track" class="relative h-px bg-neutral-800 mx-20" style="height: 1px;">
+
+        </div>
+    </div>
+
+    <footer class="fixed bottom-0 left-0 w-full p-8 z-40 flex items-center justify-between footer-container">
+        <!-- Visual Progress Bar -->
+        <div class="scroll-progress-container">
+            <div id="scroll-year-indicator" class="scroll-year-indicator">1970</div>
+            <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
+        </div>
+
+        <div class="flex items-center space-x-8">
+            <span class="text-[10px] uppercase opacity-30 tracking-[0.2em] font-bold">Filters / Categories</span>
+            <div id="filter-container" class="flex space-x-6">
+                <!-- Filters will be rendered here -->
+            </div>
+        </div>
+        <div class="text-[10px] opacity-20 uppercase tracking-widest font-bold">Scroll to Explore →</div>
+    </footer>
+
+    <div id="modal-overlay" class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-1000">
+        <!-- Parallax Background Layer -->
+        <div id="modal-bg-container" class="absolute inset-0 overflow-hidden bg-black">
+            <div id="modal-bg-image"
+                class="absolute inset-0 w-[110%] h-[110%] bg-cover bg-center opacity-40 transition-transform duration-100 ease-out"
+                style="left: -5%; top: -5%;"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+        </div>
+
+        <!-- Content Layer -->
+        <div class="relative z-10 w-full h-full flex flex-col justify-end p-8 md:p-20 pb-20">
+            <button id="close-modal"
+                class="absolute top-8 right-8 text-white/50 hover:text-white transition-colors z-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <div class="max-w-5xl mx-auto w-full">
+                <!-- Massive Background Year -->
+                <div id="modal-year-display"
+                    class="text-[12rem] md:text-[20rem] font-black text-white/5 leading-none absolute top-10 left-10 select-none pointer-events-none tracking-tighter mix-blend-overlay">
+                </div>
+
+                <div class="relative">
+                    <div class="flex items-center space-x-6 mb-8 text-sm font-mono tracking-widest text-neutral-400">
+                        <span id="modal-year" class="text-white"></span>
+                        <span class="w-px h-4 bg-neutral-600"></span>
+                        <span id="modal-category" class="uppercase text-emerald-400"></span>
+                    </div>
+
+                    <h2 id="modal-title"
+                        class="text-6xl md:text-9xl font-black text-white mb-8 leading-[0.9] tracking-tighter"></h2>
+
+                    <div class="flex flex-col md:flex-row gap-12 items-start">
+                        <p id="modal-desc"
+                            class="text-xl md:text-2xl text-neutral-300 max-w-2xl leading-relaxed font-light"></p>
+
+                        <div class="space-y-4 min-w-[300px]">
+                            <h3
+                                class="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-6 border-b border-white/10 pb-2">
+                                Archived Resources</h3>
+                            <div id="modal-resources" class="flex flex-col gap-3">
+                                <!-- Resources injected here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cursor-follower" id="follower"></div>
+    <div class="cursor-dot" id="dot"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
