@@ -124,18 +124,6 @@ const events = [
         ]
     },
     {
-        id: 10,
-        year: 2001,
-        title: "Code Red",
-        desc: "A devastating worm that exploited a vulnerability in Microsoft IIS servers. In a single day, it infected over 350,000 systems to launch a coordinated Distributed Denial of Service (DDoS) attack against the White House website.",
-        category: "Malware",
-        modalImage: "img/codered.png",
-        resources: [
-            { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Code_Red_(computer_worm)" },
-            { label: "Scientific Analysis", url: "https://dl.acm.org/doi/10.1145/586110.586130" }
-        ]
-    },
-    {
         id: 11,
         year: 2003,
         title: "SQL Slammer",
@@ -1082,3 +1070,102 @@ function initStarBackground() {
     resize();
     draw();
 }
+
+// --- 13. Mobile Experience Logic ---
+function initMobileExperience() {
+    const enterMobileBtn = document.getElementById('enter-mobile');
+    const mobileWarning = document.getElementById('mobile-warning');
+    const mobileCardView = document.getElementById('mobile-card-view');
+
+    if (!enterMobileBtn) return;
+
+    enterMobileBtn.addEventListener('click', () => {
+        mobileWarning.classList.add('exit-animation');
+        setTimeout(() => {
+            mobileWarning.style.display = 'none';
+            mobileCardView.classList.remove('hidden');
+            renderMobileCards();
+        }, 800);
+    });
+
+    // Handle card entry animations on scroll
+    mobileCardView.addEventListener('scroll', () => {
+        const cards = document.querySelectorAll('.mobile-event-card');
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.9) {
+                card.classList.add('in-view');
+            }
+        });
+    });
+}
+
+function renderMobileCards() {
+    const cardsList = document.getElementById('mobile-cards-list');
+    if (!cardsList) return;
+
+    cardsList.innerHTML = '';
+
+    // Sort events by year
+    const sortedEvents = [...events].sort((a, b) => b.year - a.year); // Newest first for mobile list? 
+    // Actually, user might prefer chronological for history. Let's stick to chronological a-b.
+    const chronologicalEvents = [...events].sort((a, b) => a.year - b.year);
+
+    chronologicalEvents.forEach((event, index) => {
+        const color = categoryColors[event.category] || "#ff3333";
+        const card = document.createElement('div');
+        card.className = 'mobile-event-card';
+        card.style.transitionDelay = `${index * 0.1}s`;
+
+        // Prepare resources HTML
+        let resourcesHtml = '';
+        if (event.resources && event.resources.length > 0) {
+            resourcesHtml = `
+                <div class="mobile-card-links">
+                    ${event.resources.map(res => `
+                        <a href="${res.url}" target="_blank" class="mobile-card-link" style="border-color: ${color}33">
+                            ${res.label}
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </a>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        card.innerHTML = `
+            <div class="mobile-card-year">${event.year}</div>
+            <h3 class="mobile-card-title">${event.title}</h3>
+            <p class="mobile-card-desc">${event.desc}</p>
+            <div class="flex justify-between items-center">
+                <div class="mobile-card-category" style="color: ${color}; border: 1px solid ${color}33">${event.category}</div>
+            </div>
+            ${resourcesHtml}
+        `;
+
+        cardsList.appendChild(card);
+
+        // Initial check for visible cards
+        setTimeout(() => {
+            const rect = card.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                card.classList.add('in-view');
+            }
+        }, 100);
+    });
+}
+
+// Initialize all
+document.addEventListener('DOMContentLoaded', () => {
+    initStarBackground();
+    initMobileExperience();
+    // Re-check for mobile view on mount
+    if (window.innerWidth <= 1024) {
+        document.getElementById('mobile-warning').style.display = 'flex';
+        document.getElementById('mobile-warning').style.opacity = '1';
+    }
+});
+
+initStarBackground(); // Fallback if DOMContentLoaded already fired
+initMobileExperience();

@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="color-scheme" content="dark">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
 </head>
 
 <body
@@ -187,6 +188,35 @@
 
     <div class="cursor-follower" id="follower"></div>
     <div class="cursor-dot" id="dot"></div>
+
+    <div id="mobile-warning" class="mobile-warning-overlay">
+        <div class="mobile-warning-content">
+            <div class="mobile-warning-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+            </div>
+            <h2 class="mobile-warning-title">Desktop Experience Optimized</h2>
+            <p class="mobile-warning-text">This archive is designed for a large-screen immersive experience. For the
+                best visual storytelling and technical detail, please visit us on a <strong>Desktop</strong>.</p>
+            <div class="mobile-warning-footer">
+                <button id="enter-mobile" class="mobile-enter-btn">Enjoy Anyway</button>
+                <span class="mobile-warning-tag">CYBERATTACK HISTORY</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Card View -->
+    <div id="mobile-card-view" class="mobile-card-container hidden">
+        <header class="mobile-view-header">
+            <h1 class="mobile-view-title text-white">CYBER<span class="text-neutral-500">ATTACK</span></h1>
+            <p class="mobile-view-subtitle">Chronological Visual Archive</p>
+        </header>
+        <div id="mobile-cards-list" class="mobile-cards-list">
+            <!-- Cards will be injected here -->
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
