@@ -856,13 +856,24 @@ function updateScroll() {
     requestAnimationFrame(updateScroll);
 }
 
+function hideScrollHint() {
+    const hint = document.getElementById('scroll-hint');
+    if (hint && hint.classList.contains('visible')) {
+        hint.classList.remove('visible');
+        // Optional: Remove from DOM after fade out
+        setTimeout(() => hint.remove(), 1000);
+    }
+}
+
 scrollContainer.addEventListener('wheel', (e) => {
     e.preventDefault();
+    hideScrollHint();
     targetScrollLeft = Math.max(0, Math.min(scrollContainer.scrollWidth - scrollContainer.clientWidth, targetScrollLeft + e.deltaY * 2.5));
 });
 
 scrollContainer.addEventListener('mousedown', (e) => {
     isDragging = true;
+    hideScrollHint();
     startX = e.pageX - scrollContainer.offsetLeft;
     scrollStartX = targetScrollLeft;
     scrollContainer.classList.add('grabbing');
@@ -893,6 +904,7 @@ function handleScrollBarInteraction(e) {
 
 scrollProgressContainer.addEventListener('mousedown', (e) => {
     isDraggingScrollBar = true;
+    hideScrollHint();
     handleScrollBarInteraction(e);
     scrollContainer.classList.add('grabbing');
 });
@@ -931,11 +943,18 @@ function initializeApp() {
     if (splash) {
         setTimeout(() => {
             splash.classList.add('fade-out');
-            // Remove from DOM after transition to avoid any pointer-event issues
+            // Show scroll hint after splash screen fades
+            const hint = document.getElementById('scroll-hint');
+            if (hint) {
+                setTimeout(() => {
+                    hint.classList.add('visible');
+                }, 1000);
+            }
+            // Remove from DOM after transition
             setTimeout(() => {
                 splash.remove();
-            }, 1000); // Matches the 1s transition in CSS
-        }, 1000); // Initial 1s display
+            }, 1000);
+        }, 1000);
     }
 }
 
