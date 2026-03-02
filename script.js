@@ -998,6 +998,29 @@ const dot = document.getElementById('dot');
 // Variables para la posición del mouse y del seguidor
 let mouseX = 0, mouseY = 0;     // Posición real del mouse
 let followX = 0, followY = 0;   // Posición del círculo con retraso
+// Soporte touch para mobile
+document.addEventListener('touchstart', (e) => {
+    const t = e.touches[0];
+    followX = t.clientX;
+    followY = t.clientY;
+    mouseX = t.clientX;
+    mouseY = t.clientY;
+    dot.style.left = mouseX + 'px';
+    dot.style.top = mouseY + 'px';
+    dot.style.opacity = '1';
+    follower.style.opacity = '1';
+}, { passive: true });
+
+document.addEventListener('touchmove', (e) => {
+    const t = e.touches[0];
+    mouseX = t.clientX;
+    mouseY = t.clientY;
+    dot.style.left = mouseX + 'px';
+    dot.style.top = mouseY + 'px';
+}, { passive: true });
+
+
+
 
 // 1. Capturamos la posición del mouse constantemente
 document.addEventListener('mousemove', (e) => {
