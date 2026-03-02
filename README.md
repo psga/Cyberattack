@@ -12,7 +12,7 @@ Experience the timeline live: **[https://psga.github.io/Cyberattack/](https://ps
 
 ---
 
-## ✨ Features
+## Features
 
 - **Interactive Timeline**: Navigate through decades of history with a smooth, "lerped" horizontal scroll and draggable interface.
 - **Categorized Archive**: Explore four critical pillars of cybersecurity:
@@ -27,3 +27,4 @@ Experience the timeline live: **[https://psga.github.io/Cyberattack/](https://ps
 
 
 *“The first known cyberweapon to cause physical damage... a technical or social turning point.”*
+
