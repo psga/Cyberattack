@@ -25,11 +25,24 @@
     .mobile-warning-overlay {
         display: flex;
     }
+     /* AGREGA ESTO: */
+     * {
+        cursor: auto !important;
+    }
 
-    /* Hide custom cursor on mobile as it's not needed/functional */
+  
+
+    /* Hide custom cursor on mobile as it's not needed/functional 
     .cursor-follower,
     .cursor-dot {
         display: none !important;
+    }
+    */
+}
+@media (max-width: 1024px) {
+    .cursor-follower,
+    .cursor-dot {
+        z-index: 999999 !important;
     }
 }
 
