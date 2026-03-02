@@ -25,11 +25,11 @@
     .mobile-warning-overlay {
         display: flex;
     }
-     /* AGREGA ESTO: */
+     /* AGREGA ESTO: 
      * {
         cursor: auto !important;
     }
-
+*/
   
 
     /* Hide custom cursor on mobile as it's not needed/functional 
