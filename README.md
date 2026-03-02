@@ -28,3 +28,6 @@ Experience the timeline live: **[https://psga.github.io/Cyberattack/](https://ps
 
 *“The first known cyberweapon to cause physical damage... a technical or social turning point.”*
 
+## Contributors
+- [@maysu1993](https://github.com/maysu1993) — Research, information curation, timeline organization, and image collection.
+- [@psga](https://github.com/psga) — Web development and implementation.
